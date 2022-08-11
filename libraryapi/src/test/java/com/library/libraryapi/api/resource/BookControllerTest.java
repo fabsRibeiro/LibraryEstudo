@@ -3,6 +3,7 @@ package com.library.libraryapi.api.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.library.libraryapi.api.dto.BookDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,8 +16,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,7 +34,8 @@ public class BookControllerTest {
     @DisplayName("Deve criar um livro com sucesso")
     public void createBookTest() throws Exception {
 
-        String json = new ObjectMapper().writeValueAsString(null);
+        BookDTO bookDTO = BookDTO.builder().author("Arthur").title("As aventuras").isbn("001").id(1L).build();
+        String json = new ObjectMapper().writeValueAsString(bookDTO);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(BOOK_API)
@@ -47,9 +47,9 @@ public class BookControllerTest {
                 .perform(request)
                 .andExpect( status().isCreated())
                 .andExpect( jsonPath("id").isNotEmpty() )
-                    .andExpect( jsonPath("tittle").value("Meu Livro"))
-                    .andExpect( jsonPath("author").value("Autor"))
-                    .andExpect( jsonPath("isbn").value("1213212"))
+                .andExpect( jsonPath("title").value(bookDTO.getTitle()))
+                .andExpect( jsonPath("author").value(bookDTO.getAuthor()))
+                .andExpect( jsonPath("isbn").value(bookDTO.getIsbn()))
             ;
 
     }
