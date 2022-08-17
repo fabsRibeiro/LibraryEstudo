@@ -17,5 +17,6 @@ public interface BookService {
 
     Page<Book> find(Book filter, Pageable pageRequest);
 
-    Optional<Book> getBookByIsbn(String isbn);
+    Optional<Book>
+    getBookByIsbn(String isbn);
 }
