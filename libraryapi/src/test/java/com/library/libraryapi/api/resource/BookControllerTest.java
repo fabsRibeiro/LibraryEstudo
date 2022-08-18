@@ -6,6 +6,7 @@ import com.library.libraryapi.api.dto.BookDTO;
 import com.library.libraryapi.exception.BusinessException;
 import com.library.libraryapi.model.entity.Book;
 import com.library.libraryapi.service.BookService;
+import com.library.libraryapi.service.LoanService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,9 @@ public class BookControllerTest {
 
     @Autowired
     MockMvc mvc;
+
+    @MockBean
+    LoanService loanService;
 
     @MockBean
     BookService service;
